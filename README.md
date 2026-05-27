@@ -5,171 +5,170 @@
 [![No GPU Required](https://img.shields.io/badge/GPU-Not%20Required-brightgreen.svg)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**Languages:** English &nbsp;|&nbsp; [Türkçe](README.tr.md) &nbsp;|&nbsp; [Français](README.fr.md) &nbsp;|&nbsp; [Deutsch](README.de.md) &nbsp;|&nbsp; [中文](README.zh.md)
+
+---
+
 ![Sparse Attention Demo](sparse-attention-demo.svg)
 
-**GPU'nuz yok mu? Sorun değil! MiniMax'in 1M token'da kullandığı sparse attention teknolojisini CPU'da görselleştirin ve anlayın.** 🧠✨
+**No GPU? No problem. Visualize and understand the sparse attention technology used by MiniMax on 1M tokens — running entirely on CPU.** 🧠✨
 
 ---
 
-## 🎯 Neden Bu Proje?
+## 🎯 Why This Project?
 
-Büyük dil modelleri (LLM'ler) çok uzun metinleri işlerken **attention mekanizması** yüzünden aşırı yavaşlıyor ve bellek tüketiyor.
+Large language models slow down dramatically and consume excessive memory when processing long sequences, due to the **O(n²) attention mechanism**.
 
-**MiniMax** gibi şirketler bunu çözmek için **sparse attention** kullanıyor:
-- Tüm token'lara bakmak yerine sadece önemli olanlara bak
-- 1M token'da **9.7x hızlanma** elde et
-- Bellekten tasarruf et
+Companies like **MiniMax** solve this with **sparse attention**:
+- Instead of attending to every token, look only at the important ones
+- Achieve **9.7× speedup** at 1M tokens
+- Cut memory usage significantly
 
-**Ama nasıl çalıştığını kimse görselleştirmemiş!** 🤔
+**Yet nobody has visualized how it actually works.** 🤔
 
-Bu proje:
-- ✅ **MiniMax'in kullandığı Top-k sparse attention'ı** basitçe implement eder
-- ✅ **GPU gerektirmez** - CPU'da çalışır
-- ✅ **Görselleştirir** - Hangi kelimelere bakıldığını renkli gösterir
-- ✅ **Eğitici** - Öğrenciler, meraklılar, araştırmacılar için
-- ✅ **Açık kaynak** - İstediğin gibi değiştir, geliştir
+This project:
+- ✅ **Implements Top-k sparse attention** (MiniMax-style) from scratch
+- ✅ **No GPU required** — runs on CPU
+- ✅ **Visualizes** which words are attended to, in color
+- ✅ **Educational** — for students, researchers, and the curious
+- ✅ **Open source** — modify and extend freely
 
 ---
 
-## 🌟 Özellikler
+## 🌟 Features
 
-### 🔬 3 Farklı Attention Mekanizması
-1. **Full Attention** - Tüm token'lara bakar (baseline)
-2. **Random Sparse** - Rastgele token'lara bakar
-3. **Top-k Sparse** - Sadece en önemli k token'lara bakar (MiniMax-style) ⭐
+### 🔬 3 Attention Mechanisms
+1. **Full Attention** — Standard O(n²) baseline
+2. **Random Sparse** — Randomly sampled tokens
+3. **Top-k Sparse** — Attends only to the top-k scoring tokens (MiniMax-style) ⭐
 
-### 📊 Zengin Görselleştirmeler
-- **Attention Heatmap'leri** - Kim kime bakıyor?
-- **Token Selection Maps** - Hangi kelimeler seçildi/atlandı?
-- **Speed-Accuracy Tradeoff** - Ne kadar hızlanma, ne kadar kayıp?
-- **Interactive Plots** - Plotly ile interaktif keşif
+### 📊 Rich Visualizations
+- **Attention Heatmaps** — Who attends to whom?
+- **Token Selection Maps** — Which words were selected vs. skipped?
+- **Speed–Accuracy Tradeoff** — How much speedup, how much quality loss?
+- **Interactive Plots** — Explore with Plotly
 
-### ⚡ Performans Analizi
+### ⚡ Performance Metrics
 - Inference time (ms)
 - Memory usage (MB)
-- Accuracy/F1 score
+- Accuracy / F1 score
 - Speedup ratio
 
 ---
 
-## 📦 Kurulum
+## 📦 Installation
 
 ```bash
-# 1. Repoyu clone'la
-git clone https://github.com/yourusername/sparse-attention-viz.git
+# 1. Clone the repo
+git clone https://github.com/mturac/sparse-attention-viz.git
 cd sparse-attention-viz
 
-# 2. Bağımlılıkları yükle
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# 3. Çalıştır!
+# 3. Run!
 python main.py
 ```
 
-**GPU yok? Sorun değil!** Her şey CPU'da çalışacak. 💪
+**No GPU? No problem.** Everything runs on CPU. 💪
 
 ---
 
-## 🚀 Hızlı Başlangıç
+## 🚀 Quick Start
 
 ### Demo Notebook
 ```bash
 jupyter notebook demo.ipynb
 ```
 
-### Tek Komutla Tüm Deneyler
+### Run All Experiments
 ```bash
 python main.py --dataset imdb --samples 1000 --k-values 5 10 20 50 100
 ```
 
-### Sadece Görselleştirme
+### Visualization Only
 ```bash
 python attention_viz.py --example "I love this movie, it's amazing!"
 ```
 
 ---
 
-## 📈 Örnek Sonuçlar
-
-### Attention Heatmap Karşılaştırması
+## 📈 Example Results
 
 | Full Attention | Random Sparse | Top-k Sparse |
 |:-:|:-:|:-:|
-| Tüm token'lara bakar | Rastgele seçer | Sadece en önemli k token |
+| Attends to all tokens | Random selection | Only top-k tokens |
 | O(n²) | O(n·k) | O(n·k) |
 | Baseline | Weak baseline | **MiniMax-style** ⭐ |
 
 ---
 
-## 🔬 Deneyler
+## 🔬 Experiments
 
-### Deney 1: Farklı k Değerleri
+### Experiment 1: Varying k
 ```bash
 python main.py --k-values 5 10 20 50 100 --samples 500
 ```
 
-### Deney 2: Dataset Karşılaştırması
+### Experiment 2: Dataset Comparison
 ```bash
 python main.py --dataset imdb --samples 1000
 python main.py --dataset agnews --samples 1000
 ```
 
-### Deney 3: Sequence Length Analizi
+### Experiment 3: Sequence Length Analysis
 ```bash
 python main.py --seq-lengths 128 256 512 1024
 ```
 
 ---
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
 ```
 sparse-attention-viz/
-├── main.py                 # Ana training ve eval script
-├── attention_viz.py        # Görselleştirme fonksiyonları
-├── models.py               # Transformer modelleri (Full, Random, Top-k)
-├── utils.py                # Data loading, tokenizer, metrics
-├── demo.ipynb              # İnteraktif Jupyter notebook
-├── requirements.txt        # Bağımlılıklar
-├── README.md               # Bu dosya
-├── LICENSE                 # MIT License
-└── results/                # Çalıştırınca oluşur
-    ├── heatmaps/           # Attention heatmap PNG'leri
-    ├── examples/           # Token selection görselleri
-    ├── interactive/        # Plotly HTML'leri
-    └── metrics/            # JSON sonuçlar
+├── main.py             # Training and evaluation runner
+├── attention_viz.py    # Visualization functions
+├── models.py           # Transformer models (Full, Random, Top-k)
+├── utils.py            # Data loading, tokenizer, metrics
+├── demo.ipynb          # Interactive Jupyter notebook
+├── requirements.txt    # Dependencies
+└── results/            # Generated on run
+    ├── heatmaps/       # Attention heatmap PNGs
+    ├── examples/       # Token selection images
+    ├── interactive/    # Plotly HTML files
+    └── metrics/        # JSON results
 ```
 
 ---
 
-## 🎓 Öğrenme Çıktıları
+## 🎓 Learning Outcomes
 
-Bu projeyi tamamladığınızda:
-- ✅ Sparse attention'ın nasıl çalıştığını **görsel olarak** anlayacaksınız
-- ✅ Full vs sparse attention trade-off'larını **deneysel olarak** göreceksiniz
-- ✅ MiniMax, Longformer, BigBird gibi modellerin **temel mantığını** kavrayacaksınız
-- ✅ Kendi sparse attention varyantlarınızı **tasarlayabileceksiniz**
+After working through this project you will:
+- ✅ Understand **visually** how sparse attention works
+- ✅ See **experimentally** the full vs. sparse attention trade-offs
+- ✅ Grasp the **core idea** behind MiniMax, Longformer, and BigBird
+- ✅ Be able to **design** your own sparse attention variants
 
 ---
 
-## 🤝 Katkıda Bulunma
+## 🤝 Contributing
 
-1. Projeyi fork edin
-2. Feature branch oluşturun (`git checkout -b feature/AmazingFeature`)
-3. Commit yapın (`git commit -m 'Add some AmazingFeature'`)
-4. Branch'e push edin (`git push origin feature/AmazingFeature`)
-5. Pull Request açın
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### İlginç Fikirler:
-- [ ] Farklı sparse selection stratejileri (threshold-based, learned gates)
-- [ ] Daha büyük dataset'ler (WikiText, BookCorpus)
-- [ ] Multi-head attention görselleştirme
+### Ideas welcome:
+- [ ] Threshold-based or learned-gate sparse selection
+- [ ] Larger datasets (WikiText, BookCorpus)
+- [ ] Multi-head attention visualization
 - [ ] Real-time interactive dashboard
-- [ ] Türkçe dataset desteği
 
 ---
 
-## 📚 Kaynaklar
+## 📚 References
 
 - [MiniMax M3 Technical Report](https://www.minimax.ai/)
 - [Sparse Transformer (OpenAI)](https://arxiv.org/abs/1904.10509)
@@ -178,9 +177,9 @@ Bu projeyi tamamladığınızda:
 
 ---
 
-## 📄 Lisans
+## 📄 License
 
-MIT License. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+MIT License — see [LICENSE](LICENSE) for details.
 
 ---
 
