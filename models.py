@@ -313,6 +313,12 @@ class SparseAttentionClassifier(nn.Module):
 
         # Embedding + positional encoding
         x = self.embedding(input_ids) * math.sqrt(self.d_model)
+        pe_len = self.pos_encoding.size(1)
+        if L > pe_len:
+            x = x[:, :pe_len, :]
+            if attention_mask is not None:
+                attention_mask = attention_mask[:, :pe_len]
+            L = pe_len
         x = x + self.pos_encoding[:, :L, :]
         x = self.embed_dropout(x)
 

@@ -195,7 +195,7 @@ def main():
     example_results = {}
     for name, res in all_results.items():
         example_data = get_single_example_attention(
-            res["model"], args.example_text, tokenizer, max_len=64,
+            res["model"], args.example_text, tokenizer, max_len=args.max_seq_len,
         )
         example_results[name] = example_data
     tokens = example_results["full"]["tokens"]
